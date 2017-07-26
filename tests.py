@@ -6,8 +6,8 @@ from football_explorer import FootballExplorer
 
 def test_cant_search_without_params():
     explorer = FootballExplorer(csv_file_name='test_data.csv')
-    with pytest.raises(ValueError): 
-        explorer.search()
+    with pytest.raises(ValueError):
+        next(explorer.search())
 
 
 def test_explorer_returns_all():
