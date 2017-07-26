@@ -11,6 +11,7 @@ class Player(object):
         self.country = country
         self.club_country = club_country
         self.year = int(year)
+        
 
     def __str__(self):
         return '{} - {} ({})'.format(self.position, self.name, self.country)

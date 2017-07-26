@@ -13,9 +13,7 @@ class FootballExplorer(object):
             reader = csv.reader(fp)
             for line in reader:
                 player = Player(*line)
-                yield player
-            
-            raise StopIteration()
+                yi player
 
 
     def keep_player(self, country, year, player):
@@ -29,28 +27,41 @@ class FootballExplorer(object):
         
         params = ['country', 'year'] #, 'age', 'position'
         
-       
-        
         for param in params:
             value = param_values[param]
             if value and getattr(player, param) != value:
-                return False
+                r
         return True
-                
-            
         
-        
+        #return False
     
     def search(self, country=None, year=None):
-        if country is None and year is None:
-            raise ValueError()
-        return self._search(country=country, year=year)
-        
-    def _search(self, country, year):
         for player in self.all():
-            if self.keep_player(country, year, player):
+            if self.keep_player(player.country, player.year, player):
                 yield player
-        
-        raise StopIteration()
+        #raise StopIteration()
 
 
+'''
+def keep_it(player, year=None, country=None, age=None)
+    param_values = {
+        'year': year,
+        'country': country,
+        'age': age
+    }
+
+    params_to_check = ['country', 'year', 'age']
+    for param in params_to_check:
+        value = param_values[param]
+        if value and getattr(player, param) != value:
+            return False
+
+    return False
+    
+
+def search(self, year, country):
+    for player in self.all():
+        if self.keep_it(player, year, country):
+            yield player
+    raise StopIteration()
+'''
