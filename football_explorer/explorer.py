@@ -33,8 +33,8 @@ class FootballExplorer(object):
             if valid_match:
                 yield player
 
-explorer = FootballExplorer(csv_file_name='/home/ubuntu/workspace/test_data.csv')
-results = explorer.all()
+# explorer = FootballExplorer(csv_file_name='/home/ubuntu/workspace/test_data.csv')
+# results = explorer.all()
 # print(results.next())
 
 # print(results)
@@ -43,8 +43,8 @@ results = explorer.all()
 # iterator = iter(results) # what is this ? how is it diff from results?
 # print(iterator)
 
-srch = explorer.search(country='Brazil', year=2010)
+# srch = explorer.search(country='Brazil', year=2010)
 # print(srch)
-for player in srch:
-    print('{} {}'.format( player ,player.year))
+# for player in srch:
+#     print('{} {}'.format( player ,player.year))
 
