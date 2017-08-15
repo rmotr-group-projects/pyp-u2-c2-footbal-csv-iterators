@@ -50,7 +50,7 @@ def test_search_by_country():
     assert player.number == '9'
     assert player.name == 'Roberto Cherro'
     assert player.country == 'Argentina'
-
+    
     with pytest.raises(StopIteration):
         next(iterator)
 
@@ -68,6 +68,6 @@ def test_search_by_country_and_year():
     player = next(iterator)
     assert player.name == 'Paulinho'
     assert player.country == 'Brazil'
-
+    print(results)
     with pytest.raises(StopIteration):
         next(iterator)
