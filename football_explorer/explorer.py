@@ -22,3 +22,4 @@ class FootballExplorer(object):
                 yield player
         '''
         return (player for player in self.all() if all([getattr(player, key,'') == val for key, val in kwargs.items()]))
+        
