@@ -39,6 +39,7 @@ def test_search_by_country():
     explorer = FootballExplorer(csv_file_name='test_data.csv')
     results = explorer.search(country='Argentina')
     iterator = iter(results)
+    
     # 1st player
     player = next(iterator)
     assert player.number == '1'
