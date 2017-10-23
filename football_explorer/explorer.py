@@ -5,22 +5,11 @@ from .models import Player
 class FootballExplorer(object):
     def __init__(self, csv_file_name):
         self.csv_file_name = csv_file_name
-        
+
     def __iter__(self):
         self.file = open(self.csv_file_name)
         self.reader = csv.reader(self.file)
         return self
-
-    def all(self):
-        return FootballAll(self.csv_file_name)
-
-    def search(self, country=None, year=None, age=None, position=None):
-        if not any([country, year, age, position]):
-            raise ValueError()
-        search_params = {param: value for param, value in dict(locals()).items() if param !='self' and value != None}
-        return FootballSearch(self.csv_file_name, search_params)
-    
-class FootballAll(FootballExplorer):
 
     def __next__(self):
         try:
@@ -28,10 +17,21 @@ class FootballAll(FootballExplorer):
             player = Player(*line)
             return player
         except:
+            self.file.close()
             raise StopIteration()
 
     next = __next__
 
+    def all(self):
+        return self
+
+    def search(self, country=None, year=None, age=None, position=None):
+        if not any([country, year, age, position]):
+            raise ValueError()
+        search_params = {param: value for param, value in \
+                        dict(locals()).items() if \
+                        param !='self' and value is not None}
+        return FootballSearch(self.csv_file_name, search_params)
 
 class FootballSearch(FootballExplorer):
     def __init__(self, csv_file_name, search_params):
@@ -52,6 +52,5 @@ class FootballSearch(FootballExplorer):
                 return player
             return next(self)
         except:
+            self.file.close()
             raise StopIteration()
-            
-    next = __next__
