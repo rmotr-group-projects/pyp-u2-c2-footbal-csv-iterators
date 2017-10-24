@@ -16,7 +16,7 @@ class FootballExplorer(object):
             line = next(self.reader)
             player = Player(*line)
             return player
-        except:
+        except StopIteration:
             self.file.close()
             raise StopIteration()
 
@@ -45,12 +45,12 @@ class FootballSearch(FootballExplorer):
         return True
 
     def __next__(self):
-        try:
-            line = next(self.reader)
-            player = Player(*line)
-            if self.check_player(player):
-                return player
-            return next(self)
-        except:
-            self.file.close()
-            raise StopIteration()
+        while True:
+            try:
+                line = next(self.reader)
+                player = Player(*line)
+                if self.check_player(player):
+                    return player
+            except StopIteration:
+                self.file.close()
+                raise StopIteration()
