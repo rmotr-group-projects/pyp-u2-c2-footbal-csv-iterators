@@ -14,10 +14,9 @@ class FootballExplorer(object):
         
         try:
             for line in lines:
-                result += [ Player(*line) ]
+                yield Player(*line)
         except StopIteration:
             raise
-        return result
     
     '''
         This function return a generator with file lines
@@ -43,16 +42,12 @@ class FootballExplorer(object):
                 line = next(lines) # Return the next item into iterator, using generator!
                 player = Player(*line)
             
-                if country == player.country and not year:
-                    result += [ player ]
-                
-                if country == player.country and year == player.year:
-                    result += [ player ]
+                if (country == player.country and not year) or\
+                    (country == player.country and year == player.year) or\
+                        (country == player.country and year == player.year and age == player.date_of_birth and position == player.position):
+                    yield player
             except StopIteration:
                 break
-
-        return result
-    
     
     
     
