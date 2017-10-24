@@ -54,3 +54,5 @@ class FootballSearch(FootballExplorer):
             except StopIteration:
                 self.file.close()
                 raise StopIteration()
+                
+    next = __next__
