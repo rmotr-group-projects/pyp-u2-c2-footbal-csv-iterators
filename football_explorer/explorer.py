@@ -28,7 +28,7 @@ class FootballExplorer(object):
             # string at age which is in the last few characters [-3:-1]
             if (country and player.country != country or
                     year and player.year != year or
-                    age and int(player.date_of_birth[-3:-1]) != age or
+                    age and player.date_of_birth[-3:-1] != age or
                     position and player.position != position):
 
                 # Using continue to skip the yield at the end of the method
