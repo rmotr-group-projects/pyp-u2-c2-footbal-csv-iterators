@@ -7,7 +7,8 @@ class FootballExplorer(object):
         self.csv_file_name = csv_file_name
 
     def all(self):
-        with open('test_data.csv') as fp:
+    # Using a generator to go through the file
+        with open(self.csv_file_name) as fp:
             reader = csv.reader(fp)
             for line in reader:
                 yield Player(*line)
