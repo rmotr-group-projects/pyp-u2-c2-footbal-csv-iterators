@@ -3,6 +3,12 @@ from __future__ import unicode_literals
 import pytest
 from football_explorer import FootballExplorer
 
+# Test one test file at at time:
+# PYTHONPATH=. py.test -s ./tests.py
+
+# Run individual tests
+# PYTHONPATH=. py.test -s ./tests.py -k test_explorer_returns_all
+
 
 def test_cant_search_without_params():
     explorer = FootballExplorer(csv_file_name='test_data.csv')
