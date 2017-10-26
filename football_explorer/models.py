@@ -12,5 +12,12 @@ class Player(object):
         self.club_country = club_country
         self.year = int(year)
 
+    @property
+    def age(self):
+        try:
+            return int(self.date_of_birth[-3:-1])
+        except ValueError:
+            return None
+            
     def __str__(self):
         return '{} - {} ({})'.format(self.position, self.name, self.country)
