@@ -17,6 +17,9 @@ class FootballExplorer(object):
                             items[4], items[5], items[6], items[7], 
                             items[8])
             players.append(player)
+            
+        f.close()
+        
         return players
     
     def all(self):
