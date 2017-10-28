@@ -24,8 +24,12 @@ class FootballIterator(object):
 
 
 class SearchIterator(FootballIterator):
+
+    CATEGORIES = ('country', 'age', 'year', 'position')
+
     def __init__(self, filename, country=None, year=None, age=None,
                  position=None):
+
         super(SearchIterator, self).__init__(filename)
         self.country = country
         self.year = year
@@ -35,9 +39,24 @@ class SearchIterator(FootballIterator):
     def __next__(self):
         try:
             player = Player(*next(self.reader))
-            while self.country != player.country:
+            while True:
+                matches = []
+                match = True
+                for index, category in enumerate(SearchIterator.CATEGORIES):
+                    search_value = getattr(self, category)
+                    player_value = getattr(player, category)
+                    if search_value is None:
+                        continue
+                    elif search_value == player_value:
+                        matches.append(True)
+                    else:
+                        matches.append(False)
+                for item in matches:
+                    if item is False:
+                        match = False
+                if match is True:
+                    return player
                 player = Player(*next(self.reader))
-            return player
         except:
             self.fp.close()
             raise StopIteration()

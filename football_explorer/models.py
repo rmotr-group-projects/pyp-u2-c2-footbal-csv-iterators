@@ -14,3 +14,7 @@ class Player(object):
 
     def __str__(self):
         return '{} - {} ({})'.format(self.position, self.name, self.country)
+        
+    @property
+    def age(self):
+        return int(self.date_of_birth[-3:-1])
