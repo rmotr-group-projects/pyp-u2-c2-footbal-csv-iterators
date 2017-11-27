@@ -7,6 +7,7 @@ class FootballExplorer(object):
     """
     Public interface for exploring a CSV file of football players
     """
+
     def __init__(self, csv_file_name):
         self.csv_file_name = csv_file_name
         self.iter = FootballCsvIterator(csv_file_name)
@@ -74,6 +75,8 @@ class FootballFilter(object):
         while not self.is_match(player):
             player = next(self.iterator)
         return player
+
+    next = __next__
 
     def is_match(self, player):
         """
