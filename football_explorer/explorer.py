@@ -50,7 +50,6 @@ class FootballCsvIterator(object):
                 self.reader = csv.reader(self.fp)
             return Player(*next(self.reader))
         except StopIteration:
-            # TODO: I don't actually know if this is safe, is there a guarantee this will execute?
             self.fp.close()
             raise StopIteration()
 
@@ -72,16 +71,15 @@ class FootballFilter(object):
 
     def __next__(self):
         player = next(self.iterator)
-        while not self.is_match(player):
+        while self.is_not_match(player):
             player = next(self.iterator)
         return player
 
     next = __next__
 
-    def is_match(self, player):
+    def is_not_match(self, player):
         """
-        Returns true if all search attributes match the player
-        parameter or the search attribute is not given
+        Returns false unless all non-None attributes match
         """
-        return all(value is None or
-                   getattr(player, key) == value for key, value in self.attributes.items())
+        return any(value is not None and
+                   getattr(player, key) != value for key, value in self.attributes.items())
