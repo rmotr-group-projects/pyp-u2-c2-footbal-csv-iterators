@@ -14,4 +14,9 @@ class FootballExplorer(object):
     def search(self, country=None, year=None, age=None, position=None):
         if not country and not year and not age and not position:
             raise ValueError
-
+        for player in self.all():
+            if ((not country or player.country == country)
+                and (not year or player.year == year)
+                and (not age or player.date_of_birth == age)
+                and (not position or player.position == position)):
+                    yield player
