@@ -13,7 +13,8 @@ class FootballExplorer(object):
 
     def search(self, country=None, year=None, age=None, position=None):
         if not country and not year and not age and not position:
-            raise ValueError
+            raise ValueError('Provide at least a valid argument:\
+                             country, year, age, and/or position.')
         for player in self.all():
             if ((not country or player.country == country)
                 and (not year or player.year == year)
