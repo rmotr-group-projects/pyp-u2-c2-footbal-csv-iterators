@@ -7,7 +7,9 @@ class FootballExplorer(object):
         self.csv_file_name = csv_file_name
 
     def all(self):
-        raise NotImplementedError
+        with open(self.csv_file_name) as csvfile:
+            for row in csv.reader(csvfile):
+                yield Player(*row)
 
     def search(self, country=None, year=None, age=None, position=None):
         if not country and not year and not age and not position:
