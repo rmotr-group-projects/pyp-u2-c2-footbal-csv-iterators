@@ -1,5 +1,4 @@
 import csv
-
 from .models import Player
 
 
@@ -8,7 +7,9 @@ class FootballExplorer(object):
         self.csv_file_name = csv_file_name
 
     def all(self):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def search(self, country=None, year=None, age=None, position=None):
-        raise NotImplementedError()
+        if not country and not year and not age and not position:
+            raise ValueError
+
