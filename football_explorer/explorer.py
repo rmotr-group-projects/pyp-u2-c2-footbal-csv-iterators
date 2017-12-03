@@ -11,4 +11,6 @@ class FootballExplorer(object):
         raise NotImplementedError()
 
     def search(self, country=None, year=None, age=None, position=None):
-        raise NotImplementedError()
+
+        if not all([country, year, age, position]):
+            raise ValueError
