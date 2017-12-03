@@ -15,9 +15,6 @@ class FootballExplorer(object):
         with open(self.csv_file_name) as fp:
             reader = csv.reader(fp)
             for line in reader:
-
-                print(*line)
-
                 yield Player(*line)
 
     def search(self, country=None, year=None, age=None, position=None):
@@ -25,9 +22,9 @@ class FootballExplorer(object):
         Yields the Player object the matches search criteria
         """
 
-        player_attr = [country, year, age, position]
+        search_criteria = [country, year, age, position]
 
-        if not any(player_attr):
+        if not any(search_criteria):
             raise ValueError
 
         with open(self.csv_file_name) as fp:
@@ -36,13 +33,15 @@ class FootballExplorer(object):
 
                 player = Player(*line)
 
-                player_attr_line = [player.country,
+                player_attribute = [player.country,
                                     player.year,
                                     player.date_of_birth,
                                     player.position]
 
-                search_restriction = [(pa == pal) for pa, pal in zip(player_attr, player_attr_line) if pa]
+                # check if criteria equal attribute only for criteria that were provided
+                search_restriction = [(criteria == attribute)
+                                      for criteria, attribute in zip(search_criteria, player_attribute)
+                                      if criteria]
 
                 if all(search_restriction):
-                    print(*line)
                     yield player
