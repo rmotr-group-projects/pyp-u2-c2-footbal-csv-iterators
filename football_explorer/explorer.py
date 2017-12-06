@@ -9,7 +9,6 @@ class PlayerIter(object):
         self.index = 0
         
     def player_files(self): 
-        players = []
         with open(self.players_csv) as fp:
             reader = csv.reader(fp, delimiter=',')
             for line in reader: 
@@ -17,8 +16,7 @@ class PlayerIter(object):
                 yield player
        
             
-        #return players
-                
+
     def __iter__(self):
         return self
     
