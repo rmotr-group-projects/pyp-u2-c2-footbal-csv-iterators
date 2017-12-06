@@ -48,4 +48,3 @@ class FootballExplorer(object):
         for player in self.all():
             if ((player.country == country or not country) and (player.year == year or not year) and (player.date_of_birth[-3:-1] == age or not age) and (player.position == position or not position)):
                 yield player
-        print player_res
