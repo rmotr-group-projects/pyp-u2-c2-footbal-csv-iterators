@@ -19,20 +19,20 @@ class FootballExplorer(object):
         else:
             self.file_path = self.csv_file_name
 
-    def all_iterator(self):
+    def all(self):
         """Returns an iterator containing all the records from the csv file 
         as Player objects.
         """
         return FootballIterator(self.csv_file_name)
         
-    def all(self):
+    def all_generator(self):
         """Generator version of FootballExplorer.all()"""
         with open(self.file_path) as f:
             reader = csv.reader(f)
             for line in reader:
                 yield Player(*line)
 
-    def search_iterator(self, country=None, year=None, age=None, position=None):
+    def search(self, country=None, year=None, age=None, position=None):
         """Returns an iterator containing all the records from the csv file 
         matching the given parameters as Player objects.
         """
@@ -42,7 +42,7 @@ class FootballExplorer(object):
         age = str_year_and_age['str_age']
         return FootballSearchIterator(self.csv_file_name, country, year, age, position)
 
-    def search(self, country=None, year=None, age=None, position=None):
+    def search_generator(self, country=None, year=None, age=None, position=None):
         """Generator version of FootballExplorer.search()"""
         str_year_and_age = self.__check_search_args(country, year, age, position)
         year = str_year_and_age['str_year']
@@ -56,7 +56,7 @@ class FootballExplorer(object):
                 yield(Player(*line))
             
     def __check_search_args(self, country, year, age, position):
-        """Raise an exception if an invalid argument is provided, and return a 
+        """Raise an exception if an invalid argument is provided, and returns a 
         dictionary containing string versions of year and age.
         """
         # Not to be mistaken for FootballExplorer.all():
