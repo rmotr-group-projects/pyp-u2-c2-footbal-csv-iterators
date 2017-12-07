@@ -24,42 +24,14 @@ class FootballIterable(object):
     next = __next__
 
 
-class FootballSearchIterable(FootballIterable):
-    def __init__(self, csv_file_name, country=None, year=None, age=None, position=None):
-        super(FootballSearchIterable, self).__init__(csv_file_name)
-        self.country = country
-        self.year = year
-        self.age = age
-        self.position = position
-        
-
-    def _matched(self, player):
-        if (self.country and self.country != player.country) or \
-                (self.year and self.year != player.year) or \
-                (self.age and self.age != player.age) or \
-                (self.position and self.position != player.position):
-            return False
-        return True
-        
-    def __next__(self):
-        player = super(FootballSearchIterable, self).__next__()
-        if self._matched(player):
-            return player
-        return next(self)
-
-    next = __next__
-
-# class FootballSearchIterable(object):
-#     def __init__(self, csv_file_name, country=None, year=None, age=None, position=None, all=None):
-#         self.csv_file_name = csv_file_name
+# class FootballSearchIterable(FootballIterable):
+#     def __init__(self, csv_file_name, country=None, year=None, age=None, position=None):
+#         super(FootballSearchIterable, self).__init__(csv_file_name)
 #         self.country = country
 #         self.year = year
 #         self.age = age
 #         self.position = position
-#         self._all = all
         
-#     def __iter__(self):
-#         return self
 
 #     def _matched(self, player):
 #         if (self.country and self.country != player.country) or \
@@ -70,12 +42,46 @@ class FootballSearchIterable(FootballIterable):
 #         return True
         
 #     def __next__(self):
-#         player = self._all.next()
+#         player = super(FootballSearchIterable, self).__next__()
 #         if self._matched(player):
 #             return player
 #         return next(self)
-    
+
 #     next = __next__
+
+class FootballSearchIterable(object):
+    def __init__(self, csv_file_name, country=None, year=None, age=None, position=None, all=None):
+        self.csv_file_name = csv_file_name
+        self.country = country
+        self.year = year
+        self.age = age
+        self.position = position
+        self._all = all
+        
+    def __iter__(self):
+        return self
+
+    def _matched(self, player):
+        if (self.country and self.country != player.country) or \
+                (self.year and self.year != player.year) or \
+                (self.age and self.age != player.age) or \
+                (self.position and self.position != player.position):
+            return False
+        return True
+        
+    # def __next__(self): # recursive, not working
+    #     player = self._all.next()
+    #     if self._matched(player):
+    #         return player
+    #     return next(self)
+        
+    def __next__(self):
+        player = self._all.next()
+        while not self._matched(player):
+            player = self._all.next()
+        return player
+
+    next = __next__
 
 
 class FootballExplorer(object):
@@ -88,8 +94,8 @@ class FootballExplorer(object):
     def search(self, country=None, year=None, age=None, position=None):
         if country==None and year==None and age==None and position==None:
             raise ValueError()
-        return FootballSearchIterable(self.csv_file_name, country, year, age, position)
-        # return FootballSearchIterable(self.csv_file_name, country, year, age, position, self.all())        
+        # return FootballSearchIterable(self.csv_file_name, country, year, age, position)
+        return FootballSearchIterable(self.csv_file_name, country, year, age, position, self.all())        
         
         
 
